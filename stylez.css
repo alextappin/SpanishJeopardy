@@ -2,10 +2,16 @@
  * Style tweaks
  * --------------------------------------------------
  */
-html,
+html {
+ /*   zoom: 0.9;
+    -moz-transform: scale(0.9);
+    -webkit-transform: scale(0.9);
+    transform: scale(0.9);*/
+}
 body {
     background-image: url("gradient-background.jpg");
     overflow-x: hidden; /* Prevent scroll on narrow devices */
+    background-repeat: no-repeat;
 }
 body {
     padding-top: 70px;
