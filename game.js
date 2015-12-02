@@ -38,6 +38,7 @@ app.controller("HelloController", function($scope) {
         }
         $scope.readyToAssignPoints = false;
         $scope.answered++;
+        $scope.selectedImage = " ";
         if ($scope.answered >= 15) {
             $scope.done = true;
             $scope.winning = $scope.team1 > $scope.team2 ? 1 : 2;
