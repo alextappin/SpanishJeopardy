@@ -1,14 +1,105 @@
 <!doctype html>
 <html>
 <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="stylez.css">
     <script src="angular.min.js"></script>
     <script src="game.js"></script>
 </head>
 
-<body ng-app="myApp">
+<body ng-app="myApp" ng-controller = "HelloController">
+<nav class="navbar navbar-fixed-top navbar-inverse">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Spanish Jeopardy</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Jen</a></li>
+                <li><a href="#about">Es</a></li>
+                <li><a href="#contact">Fantástica</a></li>
+            </ul>
+        </div><!-- /.nav-collapse -->
+    </div><!-- /.container -->
+</nav><!-- /.navbar -->
+<div class="container" ng-show="!done">
+    <div class="row row-offcanvas row-offcanvas-right">
+        <div class="col-xs-12 col-sm-9">
+            <p class="pull-right visible-xs">
+                <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
+            </p>
+            <div class="jumbotron animated fadeIn" style="padding-bottom: 30px;">
+                <h1>Jeopardy</h1>
+            </div>
+            <div class="row" style="padding-top: 20px;">
+                <div class="col-xs-6 col-lg-4" style="padding-bottom: 3px;"  ng-repeat="data in first">
+                    <button class="btn btn-lg btn-warning text-center animated fadeInLeft" style="min-width: 160px; min-height: 120px; max-width: 160px; max-height: 120px;" ng-click="selectTile(data)" ng-class="tileIsSelected && !data.selected ? 'non-select' : 'select'">
+                        <h2 ng-show="!data.selected">{{data.price}}</h2>
+                        <h3 ng-show="data.answered">{{data.answer}}</h3>
+                        <span class="glyphicon glyphicon glyphicon-question-sign" aria-hidden="true" ng-show="data.selected && !data.answered" style="font-size: 40px"></span>
 
-<div ng-controller = "HelloController" >
-    <h2>Welcome {{helloTo.title}} to the world of Tutorialspoint!</h2>
+                    </button>
+                </div>
+                <div class="col-xs-6 col-lg-4" style="padding-bottom: 3px;"  ng-repeat="data in second">
+                    <button class="btn btn-lg btn-success text-center animated fadeInRight" style="min-width: 160px; min-height: 120px; max-width: 160px; max-height: 120px;" ng-click="selectTile(data)" ng-class="tileIsSelected && !data.selected ? 'non-select' : 'select'">
+                        <h2 ng-show="!data.selected">{{data.price}}</h2>
+                        <h3 ng-show="data.answered">{{data.answer}}</h3>
+                        <span class="glyphicon glyphicon glyphicon-question-sign" aria-hidden="true" ng-show="data.selected && !data.answered" style="font-size: 40px"></span>
+                    </button>
+                </div>
+                <div class="col-xs-6 col-lg-4" style="padding-bottom: 3px;"  ng-repeat="data in third">
+                    <button class="btn btn-lg btn-info text-center animated fadeInUp" style="min-width: 160px; min-height: 120px; max-width: 160px; max-height: 120px;" ng-click="selectTile(data)" ng-class="tileIsSelected && !data.selected ? 'non-select' : 'select'">
+                        <h2 ng-show="!data.selected">{{data.price}}</h2>
+                        <h3 ng-show="data.answered">{{data.answer}}</h3>
+                        <span class="glyphicon glyphicon glyphicon-question-sign" aria-hidden="true" ng-show="data.selected && !data.answered" style="font-size: 40px"></span>
+                    </button>
+                </div>
+            </div>
+<!--
+    <div id="leftRow" ng-repeat = "data in JepClase">
+        {{data.answer}}
+    </div>
+    <div id="middleRow" ng-repeat = "data in JepAjetivos">
+        {{data.answer}}
+    </div>
+    <div id="rightRow" ng-repeat = "data in JepVerbos">
+        {{data.answer}}
+    </div>&ndash;&gt;-->
+        </div>
+        <div class="col-xs-6 col-sm-3 sidebar-offcanvas animated fadeInRight" style="-webkit-animation-duration: 2s;" id="sidebar">
+            <h2>Equipo Scores</h2>
+            <div class="list-group">
+                <div class="list-group-item text-primary" style="font-size: 18px;">Equipo Uno : {{team1}}</div>
+                <div class="list-group-item text-danger" style="font-size: 18px;">Equipo Dos : {{team2}}</div>
+            </div>
+            <img ng-src="{{selectedImage}}" style="max-width: 390px; max-height: 375px;">
+            <div ng-show="readyToAssignPoints">
+                <div style="font-size: 35px; text-align: center; margin-left: 5px; margin-top: 10px; margin-bottom: 10px">¿Quién ganó?</div>
+                <button class="btn btn-lg btn-primary" ng-click="assignPoints(1)" style="margin-right: 15px; margin-left: 19px;">Equipo 1</button>
+                <button class="btn btn-lg btn-danger" ng-click="assignPoints(2)">Equipo 2</button>
+            </div>
+        </div>
+    </div>
+    <span id="claseText" class="animated fadeInLeft" style="position: relative; top: -655px; left: 35px; font-size: 30px; font-weight: 300; -webkit-animation-duration: 2s;">Clase</span>
+    <span id="ajetivosText" class="animated fadeIn" style="position: relative; top: -655px; left: 245px; font-size: 30px; font-weight: 300; -webkit-animation-duration: 2s;">Ajetivos</span>
+    <span id="verbosText" class="animated fadeInRight" style="position: relative; top: -655px; left: 425px; font-size: 30px; font-weight: 300; -webkit-animation-duration: 2s;">Verbos</span>
 </div>
+
+<div class="container" ng-show="done">
+    <div class="jumbotron animated fadeIn" style="padding-bottom: 30px;">
+        <h1>Jeopardy</h1>
+        <h1 ng-show="winning == 1"><span class="text-primary">Equipo Uno Gana!</span></h1>
+        <h1 ng-show="winning == 2"><span class="text-danger">Equipo Dos Gana!</span></h1>
+        <h1 ng-show="winning == 3"><span class="text-success">Empate! Equipo Uno Y Dos Gana!</span></h1>
+        <button class="btn btn-success" style="margin-top: 20px" ng-click="restart();">¿Jugar Otra Vez?</button>
+    </div>
+</div>
+<span style="position: absolute; top: 95%; right: 40px; font-size: 19px;">Alex Tappin es Muy Inteligente</span>
 </body>
 </html>
